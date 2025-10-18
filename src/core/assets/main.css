@@ -7,3 +7,8 @@
 .green-gradient {
   background: linear-gradient(to right, #53b525, #95dd34);
 }
+
+.pin {
+  cursor: pointer;
+  max-width: unset;
+}

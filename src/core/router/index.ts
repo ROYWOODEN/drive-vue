@@ -1,4 +1,5 @@
 import DriverPage from '@/pages/DriverPage.vue'
+import FormStart from '@/pages/FormStart.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -6,6 +7,10 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      component: FormStart,
+    },
+    {
+      path: '/start',
       component: DriverPage,
     },
   ],

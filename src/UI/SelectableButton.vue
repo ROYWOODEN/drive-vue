@@ -1,15 +1,22 @@
 <template>
   <div
     @click="handleClick"
-    class="px-3 py-3 w-21 rounded-4xl text-[#636366] cursor-pointer border border-[#636366] text-sm font-medium flex flex-row relative items-center justify-center"
+    class="px-3 py-3 min-w-20 rounded-4xl text-[#636366] cursor-pointer border border-[#636366] text-sm font-normal transition-all duration-500 flex flex-row relative items-center justify-center"
     :class="isActive ? 'green-gradient text-white border-0 pe-4' : 'bg-none'"
   >
-    {{ value }}
-    <slot><span :class="index === 2 ? 'me-1' : ''">₽</span> </slot>
+    <!-- Градиентный фон -->
+    <div
+      class="absolute rounded-4xl inset-0 green-gradient opacity-0 transition-opacity duration-900"
+      :class="{ 'opacity-100': isActive }"
+    ></div>
+
+    <!-- Контент поверх -->
+    <span class="relative z-10">{{ value }}</span>
+    <slot><span :class="index === 2 ? 'me-1 relative z-10' : 'relative z-10'">₽</span></slot>
     <fire
       :width="11"
       :heigth="14"
-      class="absolute right-3"
+      class="absolute right-3  transition-colors duration-500"
       v-if="index === 2"
       :currentColor="isActive && index === 2 ? 'white' : '#636366'"
     />
