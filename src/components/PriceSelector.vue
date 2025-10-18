@@ -4,23 +4,25 @@
       @select="toggle(index)"
       v-for="(value, index) in items"
       :key="index"
-      :value="value"
+      :value="value.price"
+      :index="index"
       :isActive="active === index"
+      :indexAcitive="active"
     />
   </div>
 </template>
 
 <script setup lang="ts">
+import type { Price } from '@/core/types/price'
 import SelectableButton from '@/UI/SelectableButton.vue'
 
 interface Props {
-  items: object
+  items: Price[]
   active: number | boolean
   toggle: (index: number) => void
   className: string
 }
 const props = defineProps<Props>()
-
 </script>
 
 <style scoped></style>
