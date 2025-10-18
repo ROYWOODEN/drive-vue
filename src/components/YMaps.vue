@@ -14,29 +14,25 @@
     <!-- <yandex-map-default-marker
       v-model="defaultMarker"
       :settings="{
-        coordinates: AmarkerCoords,
-        title: `Долгота: ${defaultMarker?.coordinates[0].toFixed(6)}<br>Широта: ${defaultMarker?.coordinates[1].toFixed(6)}`,
+        coordinates: defaultMarker ? defaultMarker.coordinates : AmarkerCoords,
+        title: `Долгота: ${defaultMarker?.coordinates[0].toFixed(2)}<br>Широта: ${defaultMarker?.coordinates[1].toFixed(2)}`,
         draggable: true,
         onDragMove,
       }"
     /> -->
 
-    <yandex-map-ui-marker
+    <!-- <yandex-map-ui-marker
       :settings="{
         coordinates: markerA,
         color: { day: '#00CC00', night: '#00CC00' },
-        onDragMove,
-        draggable: true,
       }"
     />
     <yandex-map-ui-marker
       :settings="{
         coordinates: markerB,
         color: { day: '#00CC00', night: '#00CC00' },
-        onDragMove,
-        draggable: true,
       }"
-    />
+    /> -->
 
     <yandex-map-feature
       :settings="{
@@ -50,8 +46,17 @@
       }"
     />
 
+    <yandex-map-marker
+      v-for="marker in markers"
+      :key="marker.iconSrc"
+      position="top-center left-center"
+      :settings="{ coordinates: marker.coordinates }"
+    >
+      <img alt="" class="pin" :class="marker.width" :src="marker.iconSrc" />
+    </yandex-map-marker>
+
     <yandex-map-listener
-      :settings="{ onClick: (_, e) => (lineCoordinates = [...lineCoordinates, e.coordinates]) }"
+      :settings="{ onClick: (_, e) => (lineCoordinates = [...lineCoordinates]) }"
     />
   </yandex-map>
 </template>
@@ -67,21 +72,34 @@ import {
   YandexMapListener,
   YandexMapDefaultMarker,
   YandexMapUiMarker,
+  YandexMapMarker,
 } from 'vue-yandex-maps'
 import { ref } from 'vue'
 import type { YMapDefaultMarker } from '@yandex/ymaps3-types/packages/markers'
 
 //Можно использовать для различных преобразований
 const map = shallowRef<null | YMap>(null)
-const AmarkerCoords = ref<[number, number]>([44.002, 56.3287])
+// const AmarkerCoords = ref<[number, number]>([44.002, 56.3287])
 
 const markerA = ref<[number, number]>([44.002, 56.3287])
 const markerB = ref<[number, number]>([44.0, 56.3])
 
 const location = ref<YMapLocationRequest>({
-  center: [44.002, 56.3287], // starting position [lng, lat]
-  zoom: 11, // starting zoom
+  center: [44.01, 56.28],
+  zoom: 11,
 })
+const markers = [
+  {
+    coordinates: [44.002, 56.3287] as LngLat,
+    iconSrc: '/marker2.png',
+    width: 'w-[15px] h-[15px]',
+  },
+  {
+    coordinates: [44.0, 56.3] as LngLat,
+    iconSrc: '/marker1.png',
+    width: 'w-[20px] h-[20px]',
+  },
+]
 
 const customization = shallowRef<VectorCustomization>([
   {
@@ -134,11 +152,11 @@ const defaultMarker = shallowRef<YMapDefaultMarker | null>(null)
 
 const lineCoordinates = ref<LngLat[]>([
   [44.002, 56.3287],
-  [44.03, 56.30],
+  [44.03, 56.3],
   [44.0, 56.3],
 ])
 
-const onDragMove = () => {
-  triggerRef(defaultMarker)
-}
+// const onDragMove = () => {
+//   triggerRef(defaultMarker)
+// }
 </script>
