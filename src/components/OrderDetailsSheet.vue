@@ -78,11 +78,7 @@
     <div class="flex flex-row w-full py-3 gap-2">
       <div class="flex-1">
         <price-selector
-          :items="[
-            {
-              recommendation: [{ price: 1000 }, { price: 3000 }, { price: 5000 }],
-            },
-          ]"
+          :items="counter.price"
           :toggle="toggle"
           :active="activePrice"
           :class-name="'flex flex-row gap-1 justify-between'"
