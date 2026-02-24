@@ -16,7 +16,7 @@
     <fire
       :width="11"
       :heigth="14"
-      class="absolute right-3  transition-colors duration-500"
+      class="absolute right-3 transition-colors duration-500"
       v-if="index === 2"
       :currentColor="isActive && index === 2 ? 'white' : '#636366'"
     />
