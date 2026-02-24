@@ -1,8 +1,8 @@
 <template>
-  <div :class="className" v-for="(item, index) in items" :key="index">
+  <div :class="className">
     <SelectableButton
       @select="toggle(index)"
-      v-for="(value, index) in item.recommendation"
+      v-for="(value, index) in items?.recommendation"
       :key="index"
       :value="value.price"
       :index="index"
@@ -17,7 +17,7 @@ import type { Price } from '@/core/types/price'
 import SelectableButton from '@/UI/SelectableButton.vue'
 
 interface Props {
-  items: Price[]
+  items: Price | null
   active: number | boolean
   toggle: (index: number) => void
   className: string
